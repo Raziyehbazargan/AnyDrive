@@ -1,8 +1,7 @@
 language: node_js
 node_js:
 - 4.4.3
-services:
-- postgresql
+
 addons:
   apt:
     sources:
@@ -23,9 +22,6 @@ script:
 notifications:
   email:
     recipients:
-    - stefuhnee@gmail.com
-    - broxsonl@gmail.com
-    - maxfred0025@gmail.com
     - Raziyeh.bazargan@gmail.com
     on_failure: change
     on_success: change
