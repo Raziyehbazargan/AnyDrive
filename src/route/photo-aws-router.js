@@ -36,12 +36,11 @@ photoAwsRouter.post('/api/photo/:bucket/create', function(req, res, next) {
   .catch(err => next(createError(400, 'no successful')));
 });
 
-// photoAwsRouter.get('/api/photo/buckets', bearerAuth, function(req, res, next) {
-//   s3.listBuckets((err,list) => {
-//     if (err) next(createError(400,'no buckets'));
-//     res.send(list);
-//   });
-// });
+photoAwsRouter.get('/api/photo/buckets', function(req, res, next) {
+  return s3Promisify.s3ListBuckets()
+  .then(data => res.send(data))
+  .catch(err => next(createError(400, 'no successful')));
+});
 
 // photoAwsRouter.delete('/api/photo/:bucket/delete', bearerAuth, function(req, res, next) {
 //   if (!req.params.bucket) next(createError(400, 'no bucket name'));
