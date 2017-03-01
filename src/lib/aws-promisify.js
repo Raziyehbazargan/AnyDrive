@@ -31,7 +31,12 @@ exports.s3ListBuckets = () => {
     });
   });
 };
-//   s3.listBuckets((err,list) => {
-//     if (err) next(createError(400,'no buckets'));
-//     res.send(list);
-//   });
+
+exports.s3DeleteBucket = function(params) {
+  return new Promise((resolve, reject) => {
+    s3.deleteBucket(params, (err, data) => {
+      if (err) return reject(err);
+      resolve('delete ');
+    });
+  });
+};

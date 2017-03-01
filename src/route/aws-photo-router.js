@@ -29,27 +29,6 @@ const dataDir =`${__dirname}/../data`;
 const upload = multer({dest: dataDir});
 const photoAwsRouter = module.exports = require('express').Router();
 
-photoAwsRouter.post('/api/photo/:bucket/create', function(req, res, next) {
-  if (!req.params.bucket) next(createError(400, 'no bucket name'));
-  return s3Promisify.s3CreateBucket(req.params.bucket)
-  .then(bucketName => res.send(bucketName))
-  .catch(err => next(createError(400, 'no successful')));
-});
-
-photoAwsRouter.get('/api/photo/buckets', function(req, res, next) {
-  return s3Promisify.s3ListBuckets()
-  .then(data => res.send(data))
-  .catch(err => next(createError(400, 'no successful')));
-});
-
-// photoAwsRouter.delete('/api/photo/:bucket/delete', bearerAuth, function(req, res, next) {
-//   if (!req.params.bucket) next(createError(400, 'no bucket name'));
-//   s3.deleteBucket({Bucket: req.params.bucket}, function(err, data) {
-//     if (err) next(createError(500,'not successful'));
-//     res.send('delete ');
-//   });
-// });
-
 // photoAwsRouter.delete('/api/photo/:bucket/clear', bearerAuth, function(req, res, next) {
 //   if (!req.params.bucket) next(createError(400, 'no bucket name'));
 //
