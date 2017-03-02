@@ -16,7 +16,6 @@ AWS.config.setPromisesDependency(require('bluebird'));
 
 // MODULE CONSTANTS
 const s3 = new AWS.S3();
-const dataDir =`${__dirname}/../data`;
 const bucketAwsRouter = module.exports = require('express').Router();
 
 bucketAwsRouter.post('/api/bucket/:bucket/create', function(req, res, next) {
@@ -35,6 +34,13 @@ bucketAwsRouter.get('/api/bucket/buckets', function(req, res, next) {
 bucketAwsRouter.delete('/api/bucket/:bucket/delete', function(req, res, next) {
   if (!req.params.bucket) next(createError(400, 'no bucket name'));
   return s3Promisify.s3DeleteBucket({Bucket: req.params.bucket})
+  .then(result => res.send(result))
+  .catch(err => next(createError(400, 'no successful')));
+});
+
+bucketAwsRouter.delete('/api/bucket/:bucket/empty', function(req, res, next) {
+  if (!req.params.bucket) next(createError(400, 'no bucket name'));
+  return s3Promisify.s3EmptyBucket({Bucket: req.params.bucket})
   .then(result => res.send(result))
   .catch(err => next(createError(400, 'no successful')));
 });
