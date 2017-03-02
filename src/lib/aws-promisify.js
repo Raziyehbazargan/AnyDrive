@@ -32,11 +32,34 @@ exports.s3ListBuckets = () => {
   });
 };
 
-exports.s3DeleteBucket = function(params) {
+exports.s3DeleteBucket = params => {
   return new Promise((resolve, reject) => {
     s3.deleteBucket(params, (err, data) => {
       if (err) return reject(err);
       resolve('delete ');
+    });
+  });
+};
+
+function s3DeleteObject(params) {
+  return new Promise((resolve, reject) => {
+    s3.deleteObject(params, (err, data) => {
+      if (err) return reject(err);
+      resolve('delete ');
+    });
+  });
+}
+
+exports.s3EmptyBucket = bucketName => {
+  return new Promise((resolve, reject) => {
+    s3.listObjects(bucketName, (err, data) => {
+      if (err) return reject(err);
+      data.Contents.map(obj => {
+        var deleteParams = { Bucket: data.Name, Key: obj.Key };
+        return s3DeleteObject(deleteParams)
+        .then(resolve('Done'))
+        .catch(err => reject(err));
+      });
     });
   });
 };
