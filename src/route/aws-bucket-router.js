@@ -6,7 +6,6 @@ const createError = require('http-errors');
 const debug = require('debug')('AnyDrive:aws-bucket-router');
 
 //APP MODULES
-const Photo = require('../model/photo');
 //const bearerAuth = require('../lib/bearer-auth-middleware');
 const s3Promisify = require('../lib/aws-promisify');
 

@@ -29,53 +29,49 @@ const dataDir =`${__dirname}/../data`;
 const upload = multer({dest: dataDir});
 const photoAwsRouter = module.exports = require('express').Router();
 
-// photoAwsRouter.delete('/api/photo/:bucket/clear', bearerAuth, function(req, res, next) {
-//   if (!req.params.bucket) next(createError(400, 'no bucket name'));
-//
-//   s3.createBucket({Bucket: req.params.bucket}, function(err, data) {
-//     if (err) next(createError(500,'not successful'));
-//     res.send('delete ');
-//   });
-// });
-//
-// photoAwsRouter.post('/api/photo/:bucket/upload', bearerAuth, upload.single('file'), function(req, res, next) {
-//   if (!req.file) return next(createError(400, 'no file found'));
-//   if (!req.file.path) return next(createError(500, 'file not saved'));
-//
-//   let ext = path.extname(req.file.originalname);
-//
-//   let params = {
-//     ACL: 'public-read',
-//     Bucket: `${req.params.bucket}`,
-//     Key: `${req.file.filename}${ext}`,
-//     Body: fs.createReadStream(req.file.path),
-//   };
-//
-//   return s3UploadPromise(params)
-//   .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
-//   .then(s3data => {
-//     del([`${dataDir}/*`]);
-//     let photoData = {
-//       name: req.body.name,
-//       caption: req.body.caption,
-//       objectKey: s3data.Key,
-//       imageURI: s3data.Location,
-//       userID: req.user._id,
-//     };
-//     return new Photo(photoData).save();
-//   });
-// });
+photoAwsRouter.post('/api/photo/:bucket/upload', upload.single('file'), function(req, res, next) {
+  if (!req.file) return next(createError(400, 'no file found'));
+  if (!req.file.path) return next(createError(500, 'file not saved'));
 
-// exports.uploadPhoto = function(req, res, next) {
-//   s3.putObject(params)
-//   .then(()=>{
-//     let photoData = {
-//       name: req.body.name,
-//       caption: req.body.caption,
-//       //objectKey: s3data.Key,
-//       //imageURI: s3data.Location,
-//       userID: req.user._id,
-//     };
-//     return new Phomto(photoData).save();
-//   });
-// };
+  let ext = path.extname(req.file.originalname); // ex: .jpg / .jpeg
+  let params = {
+    ACL: 'public-read',
+    Bucket: `${req.params.bucket}`,
+    Key: `${req.file.filename}${ext}`,
+    Body: fs.createReadStream(req.file.path),
+  };
+
+  return s3Promisify.s3UploadPromise(params)
+  .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
+  .then(s3data => {
+    del([`${dataDir}/*`]);
+    let photoData = {
+      name: req.body.name,
+      caption: req.body.caption,
+      objectKey: s3data.Key,
+      imageURI: s3data.Location,
+      //userID: req.user._id,
+    };
+    return new Photo(photoData).save();
+  });
+});
+
+photoAwsRouter.delete('/api/photo/:bucket/:id', function(req, res, next) {
+  debug('hit DELETE /api/photo/:bucket/:id');
+  Photo.findById(req.params.id)
+  .catch(err => Promise.reject(createError(404, err.message)))
+  .then(photo => {
+    if(photo.userID.toString() !== req.user._id.toString())
+      return Promise.reject(createError(401, 'User not authorized to delete this photo'));
+
+    let params = {
+      Bucket: req.params.bucket,
+      Key: photo.objectKey,
+    };
+    return s3.deleteObject(params).promise();
+  })
+ .then(() => {
+   return Photo.findByIdAndRemove(req.params.photoID);
+ })
+ .then(() => res.sendStatus(204));
+});

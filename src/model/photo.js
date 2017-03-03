@@ -7,7 +7,7 @@ const photoSchema = mongoose.Schema({
   caption: {type: String},
   imageURI: {type: String, required: true},
   objectKey: {type: String, required: true},
-  userID: {type: mongoose.Schema.Types.ObjectId, required: true},
+  userID: {type: mongoose.Schema.Types.ObjectId},
   created: {type: Date, default: Date.now},
 });
 
