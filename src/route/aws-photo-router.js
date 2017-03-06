@@ -32,7 +32,6 @@ const photoAwsRouter = module.exports = require('express').Router();
 photoAwsRouter.post('/api/photo/:bucket/upload', upload.single('file'), function(req, res, next) {
   if (!req.file) return next(createError(400, 'no file found'));
   if (!req.file.path) return next(createError(500, 'file not saved'));
-
   let ext = path.extname(req.file.originalname); // ex: .jpg / .jpeg
   let params = {
     ACL: 'public-read',

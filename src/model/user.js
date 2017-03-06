@@ -1,19 +1,25 @@
 'use strict';
 
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-import Promise from 'bluebird';
-import mongoose from 'mongoose';
-import creatError from 'http-errors';
-import debug from 'debug';
+// import bcrypt from 'bcrypt';
+// import crypto from 'crypto';
+// import jwt from 'jsonwebtoken';
+// import Promise from 'bluebird';
+// import mongoose from 'mongoose';
+// import creatError from 'http-errors';
+// import debug from 'debug';
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const creatError = require('http-errors');
+const debug = require('debug');
 
-const userSchema = mongoose.schema({
+const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: false },
   findHash: { type: String, unique: true },
 });
-
 
 userSchema.methods.generatePasswordHash = function(password) {
   debug('Generate PasswordHash');
