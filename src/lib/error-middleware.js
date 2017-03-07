@@ -5,7 +5,7 @@ const debug = require('debug')('AnyDrive:error-middleware');
 
 module.exports = function(err, req, res, next){
   debug('error middleware');
-  
+  console.log(err);
   if (err.status){
     res.status(err.status).send(err.name);
     next();
