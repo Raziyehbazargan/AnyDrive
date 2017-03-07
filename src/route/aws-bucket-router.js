@@ -3,7 +3,7 @@
 // NPM MODULES
 const AWS = require('aws-sdk');
 const createError = require('http-errors');
-const debug = require('debug')('AnyDrive:aws-bucket-router');
+const debug = require('debug')('AnyDrive: aws-bucket-router');
 
 //APP MODULES
 const bearerAuth = require('../lib/bearer-auth-middleware');

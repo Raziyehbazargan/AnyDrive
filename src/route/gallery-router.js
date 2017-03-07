@@ -1,7 +1,7 @@
 'use strict';
 
 const Router = require('express').Router;
-const jsonParser = require('body-parser');
+const jsonParser = require('body-parser').json();
 const createError = require('http-errors');
 const debug = require('debug')('AnyDrive: gallery-router');
 

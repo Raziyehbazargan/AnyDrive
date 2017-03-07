@@ -1,8 +1,9 @@
 'use strict';
 
 const jsonParser = require('body-parser').json();
-const debug = require('debug')('anydrive: auth-router');
+const debug = require('debug')('AnyDrive: auth-router');
 const Router = require('express').Router;
+
 const basicAuth = require('../lib/basic-auth-middleware');
 
 const User = require('../model/user');

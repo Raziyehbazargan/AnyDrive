@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/AnyDrive/AnyDrive#readme",
   "dependencies": {
+    "angular": "^1.6.2",
     "aws-sdk": "^2.22.0",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
@@ -41,7 +42,9 @@
     "body-parser": "^1.16.1",
     "clean-webpack-plugin": "^0.1.15",
     "cors": "^2.8.1",
+    "cowsay-browser": "^1.1.8",
     "crypto": "0.0.3",
+    "css-loader": "^0.26.2",
     "debug": "^2.6.1",
     "del": "^2.2.2",
     "dotenv": "^4.0.0",
@@ -54,9 +57,13 @@
     "mongoose": "^4.8.4",
     "morgan": "^1.8.1",
     "multer": "^1.3.0",
+    "node-sass": "^4.5.0",
     "node-uuid": "^1.4.7",
     "path": "^0.12.7",
-    "superagent": "^3.5.0"
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2",
+    "superagent": "^3.5.0",
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
