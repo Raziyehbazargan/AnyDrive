@@ -15,7 +15,8 @@ const mongoose = require('mongoose');
 const creatError = require('http-errors');
 const debug = require('debug');
 
-const userSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+const userSchema = Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: false },
   findHash: { type: String, unique: true },
