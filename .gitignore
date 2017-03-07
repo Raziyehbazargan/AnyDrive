@@ -4,6 +4,7 @@ data/*
 coverage
 html-report
 build
+mock-env.js
 
 # Logs
 logs
