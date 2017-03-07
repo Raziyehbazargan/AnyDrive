@@ -8,9 +8,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const errorMiddleware = require('./src/lib/error-middleware');
-//const authRouter = require('./src/route/auth-router');
-const photoAwsRouter = require('./src/route/aws-photo-router');
+const authRouter = require('./src/route/auth-router');
 const bucketAwsRouter = require('./src/route/aws-bucket-router');
+const photoAwsRouter = require('./src/route/aws-photo-router');
+const galleryRouter = require('./src/route/gallery-router');
 
 // load environment vars
 dotenv.load();
@@ -25,7 +26,8 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 
-//app.use(authRouter);
+app.use(authRouter);
+app.use(galleryRouter);
 app.use(photoAwsRouter);
 app.use(bucketAwsRouter);
 app.use(errorMiddleware);

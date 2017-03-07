@@ -1,6 +1,6 @@
 'use strict';
 
-const jsonParser = require('body-parser');
+const jsonParser = require('body-parser').json();
 const debug = require('debug')('anydrive: auth-router');
 const Router = require('express').Router;
 const basicAuth = require('../lib/basic-auth-middleware');
@@ -8,12 +8,11 @@ const basicAuth = require('../lib/basic-auth-middleware');
 const User = require('../model/user');
 const authRouter = module.exports = Router();
 
-authRouter.post('api/signup', jsonParser, function(req, res, next) {
+authRouter.post('/api/signup', jsonParser, function(req, res, next) {
   debug('POST: /api/signup');
 
   let password = req.body.password;
   delete req.body.password;
-
   let user = new User(req.body);
 
   user.generatePasswordHash(password)
@@ -24,7 +23,8 @@ authRouter.post('api/signup', jsonParser, function(req, res, next) {
 });
 
 authRouter.get('/api/signin', basicAuth, function(req, res, next) {
-  User.findOne({username: req.auth.username})
+  debug('GET: /api/signin');
+  User.findOne({email: req.auth.email})
   .then(user => user.comparePasswordHash(req.auth.password))
   .then(user => user.generateToken())
   .then(token => res.send(token))
