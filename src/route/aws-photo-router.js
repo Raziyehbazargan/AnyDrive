@@ -48,7 +48,6 @@ photoAwsRouter.post('/api/gallery/:id/photo', bearerAuth, upload.single('image')
   .then(() => s3UploadPromise(params))
   .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
   .then( s3data => {
-    console.log('s3data', s3data);
     del([`${dataDir}/*`]);
     let picData = {
       name: req.body.name,
@@ -64,22 +63,22 @@ photoAwsRouter.post('/api/gallery/:id/photo', bearerAuth, upload.single('image')
   .catch( err => next(err));
 });
 
-photoAwsRouter.delete('/api/photo/:bucket/:id', function(req, res, next) {
-  debug('hit DELETE /api/photo/:bucket/:id');
-  Photo.findById(req.params.id)
-  .catch(err => Promise.reject(createError(404, err.message)))
-  .then(photo => {
-    if(photo.userID.toString() !== req.user._id.toString())
-      return Promise.reject(createError(401, 'User not authorized to delete this photo'));
-
-    let params = {
-      Bucket: req.params.bucket,
-      Key: photo.objectKey,
-    };
-    return s3.deleteObject(params).promise();
-  })
- .then(() => {
-   return Photo.findByIdAndRemove(req.params.photoID);
- })
- .then(() => res.sendStatus(204));
-});
+// photoAwsRouter.delete('/api/photo/:bucket/:id', function(req, res, next) {
+//   debug('hit DELETE /api/photo/:bucket/:id');
+//   Photo.findById(req.params.id)
+//   .catch(err => Promise.reject(createError(404, err.message)))
+//   .then(photo => {
+//     if(photo.userID.toString() !== req.user._id.toString())
+//       return Promise.reject(createError(401, 'User not authorized to delete this photo'));
+//
+//     let params = {
+//       Bucket: req.params.bucket,
+//       Key: photo.objectKey,
+//     };
+//     return s3.deleteObject(params).promise();
+//   })
+//  .then(() => {
+//    return Photo.findByIdAndRemove(req.params.photoID);
+//  })
+//  .then(() => res.sendStatus(204));
+// });
