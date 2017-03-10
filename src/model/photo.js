@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const photoSchema = Schema({
-  name: {type: String},
-  caption: {type: String},
-  imageURI: {type: String},
-  objectKey: {type: String},
-  userID: {type: Schema.Types.ObjectId},
+  name: { type: String, required: true },
+  desc: { type: String, required: true },
+  userID: { type: Schema.Types.ObjectId, required: true },
   galleryID: { type: Schema.Types.ObjectId, required: true },
-  created: {type: Date, default: Date.now},
+  imageURI: { type: String, required: true, unique: true },
+  objectKey: { type: String, required: true, unique: true },
+  created: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('photo', photoSchema);

@@ -14,7 +14,7 @@ const debug = require('debug')('AnyDrive: photo-aws-router');
 //APP MODULES
 const Photo = require('../model/photo');
 const Gallery = require('../model/gallery');
-const s3Promisify = require('../lib/aws-promisify');
+const s3UploadPromise = require('../lib/aws-promisify').s3UploadPromise;
 const bearerAuth = require('../lib/bearer-auth-middleware');
 
 // module config
@@ -39,30 +39,28 @@ photoAwsRouter.post('/api/gallery/:id/photo', bearerAuth, upload.single('image')
   let ext = path.extname(req.file.originalname); // ex: .jpg / .jpeg
   let params = {
     ACL: 'public-read',
-    Bucket: process.env.BUCKET,
+    Bucket: process.env.AWS_BUCKET,
     Key: `${req.file.filename}${ext}`,
     Body: fs.createReadStream(req.file.path),
   };
 
   Gallery.findById(req.params.id)
-  .then(s3Promisify.s3UploadPromise(params))
+  .then(() => s3UploadPromise(params))
   .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
-  .then(s3data => {
+  .then( s3data => {
+    console.log('s3data', s3data);
     del([`${dataDir}/*`]);
-    let photoData = {
+    let picData = {
       name: req.body.name,
-      caption: req.body.caption,
+      desc: req.body.desc,
       objectKey: s3data.Key,
       imageURI: s3data.Location,
       userID: req.user._id,
       galleryID: req.params.id,
     };
-    return new Photo(photoData).save();
+    return new Photo(picData).save();
   })
-  .then( pic => {
-    console.log('pic------->', pic);
-    res.json(pic);
-  })
+  .then( pic => res.json(pic))
   .catch( err => next(err));
 });
 
