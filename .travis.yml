@@ -14,7 +14,6 @@ env:
 sudo: required
 before_script:
 - npm i
-- npm run create-database
 after_success: npm run coveralls
 script:
 - npm test
