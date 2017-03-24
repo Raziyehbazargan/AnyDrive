@@ -1,8 +1,10 @@
 'use strict';
 
+require('./lib/test-env');
 const expect = require('chai').expect;
 const request = require('superagent');
 const debug = require('debug')('AnyDrive: photo-router-test');
+const awsMocks = require('./lib/aws-mocks');
 
 const Photo = require('../src/model/photo');
 const User = require('../src/model/user');
@@ -93,6 +95,7 @@ describe('Photo Routes', function() {
         .attach('image', examplePic.image)
         .end((err, res) => {
           if (err) return done(err);
+
           expect(res.body.name).to.equal(examplePic.name);
           expect(res.body.desc).to.equal(examplePic.desc);
           expect(res.body.galleryID).to.equal(this.tempGallery._id.toString());

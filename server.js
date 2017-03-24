@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 const errorMiddleware = require('./src/lib/error-middleware');
 const authRouter = require('./src/route/auth-router');
 const bucketAwsRouter = require('./src/route/aws-bucket-router');
-const photoAwsRouter = require('./src/route/aws-photo-router');
+const photoAwsRouter = require('./src/route/photo-router');
 const galleryRouter = require('./src/route/gallery-router');
 
 // load environment vars
