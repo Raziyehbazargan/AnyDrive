@@ -1,5 +1,5 @@
 'use strict';
-require('./lib/mock-env');
+require('./lib/test-env');
 const expect = require('chai').expect;
 const request = require('superagent');
 const mongoose = require('mongoose');
