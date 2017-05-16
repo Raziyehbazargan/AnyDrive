@@ -13,9 +13,13 @@ function routerConfig(stateProvider, $urlRouterProvider) {
       template: require('../view/landing/landing.html')
     },
     {
-      name: 'profile',
-      url: '/profile',
-      template: require('../view/profile/profile.html')
+      name: 'home',
+      url: '/home',
+      template: require('../view/home/home.html')
     }
-  ]
+  ];
+
+  states.forEach(state => {
+    $stateProvider.state(state);
+  });
 }
