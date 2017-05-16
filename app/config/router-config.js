@@ -10,7 +10,12 @@ function routerConfig(stateProvider, $urlRouterProvider) {
     {
       name: 'landing',
       url: '/landing',
-      template: require('../view/landing/landing.html');
+      template: require('../view/landing/landing.html')
+    },
+    {
+      name: 'profile',
+      url: '/profile',
+      template: require('../view/profile/profile.html')
     }
   ]
 }
