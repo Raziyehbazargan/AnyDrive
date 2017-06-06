@@ -1,7 +1,11 @@
-import React from 'react'
+import  React from 'react'
 import { render } from 'react-dom'
 
+import LoginView from './components/login/login-view';
+
+window.React = React
+
 render(
-	<h1>this is me </h1>,
+	<LoginView />,
 	document.getElementById('react-root')
 )
