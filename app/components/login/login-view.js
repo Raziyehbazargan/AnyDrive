@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import MainNavbar from './navbar-component';
 import SignIn from './signin-component';
-//import Footer from './footer-component';
+import Footer from './footer-component';
 
 class LoginView extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class LoginView extends Component {
       <div>
         <MainNavbar />
         <SignIn />
+        <Footer />
       </div>
     )
   }
