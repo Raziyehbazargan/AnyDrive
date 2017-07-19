@@ -1,9 +1,24 @@
 import { Component } from 'react';
 import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image } from 'react-bootstrap';
+import request from 'superagent';
+
+const APP_URI = 'http://localhost:5000';
 
 class Signup extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      posts: []
+    };
+  }
+
+  componentDidMount() {
+    request
+      .get(`{APP_URI}/api/signup`)
+      .then(res => {
+        console.log(res);
+      });
   }
 
   render() {
