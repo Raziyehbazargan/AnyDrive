@@ -1,9 +1,24 @@
 import { Component } from 'react';
 import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image } from 'react-bootstrap';
+import request from 'superagent';
 
-class SignIn extends Component {
+const APP_URI = 'http://localhost:5000';
+
+class Signup extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      posts: []
+    };
+  }
+
+  componentDidMount() {
+    request
+      .get(`{APP_URI}/api/signup`)
+      .then(res => {
+        console.log(res);
+      });
   }
 
   render() {
@@ -11,21 +26,7 @@ class SignIn extends Component {
       <div className="container">
         <div className="main">
           <div className="col-lg-6 col-md-6 col-xs-12">
-            <Image src="../../img/upload-files.png" responsive />
-          </div>
-          <div className="col-lg-6 col-md-6 col-xs-12">
             <Form horizontal>
-              <FormGroup>
-                <Col sm={8}>
-                  <Button className="btn btn-primary" type="button">
-                    Sign in with Google
-                  </Button>
-                </Col>
-                <Col sm={4}>
-                  or <a href="" className="">
-                    create an account</a>
-                </Col>
-              </FormGroup>
 
               <FormGroup controlId="formHorizontalEmail">
                 <Col sm={12}>
@@ -48,7 +49,7 @@ class SignIn extends Component {
               <FormGroup>
                 <Col sm={12}>
                   <Button className="btn btn-primary" type="submit">
-                    Sign in
+                    Create an account
                   </Button>
                 </Col>
               </FormGroup>
