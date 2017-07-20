@@ -13,11 +13,7 @@ class NewGallery extends Component {
   }
 
   componentDidMount() {
-    // request
-    //   .post(`${APP_URI}/api/galley`)
-    //   .then(res => {
-    //     console.log(res);
-    //   });
+    //it will load when component insert into DOM
   }
 
   createNewGallery(e) {

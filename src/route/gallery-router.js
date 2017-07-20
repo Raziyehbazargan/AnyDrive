@@ -12,7 +12,7 @@ const galleryRouter = module.exports = Router();
 
 galleryRouter.post('/api/gallery', jsonParser, function(req, res, next) {
   debug('POST: /api/gallery');
-  console.log(req.body, 'boooooooody-->');
+
   //req.body.userID = req.user._id;
   new Gallery(req.body).save()
   .then(gallery => {
@@ -31,6 +31,19 @@ galleryRouter.get('/api/gallery/:id', bearerAuth, function(req, res, next) {
       return next(createError(401, 'invalid user'));
     }
     res.json(gallery);
+  })
+  .catch(next);
+});
+
+galleryRouter.get('/api/gallery', function(req, res, next) {
+  debug('GET: /api/gallery/:id');
+
+  Gallery.find()
+  .then( galleries => {
+    // if (gallery.userID.toString() !== req.user._id.toString()) {
+    //   return next(createError(401, 'invalid user'));
+    // }
+    res.json(galleries);
   })
   .catch(next);
 });
