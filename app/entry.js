@@ -1,9 +1,9 @@
 import  React from 'react'
 import { render } from 'react-dom'
 
-import LoginView from './components/login/login-view';
+import LoginView from './components/login-view';
 
-window.React = React
+window.React = React;
 
 render(
 	<LoginView />,

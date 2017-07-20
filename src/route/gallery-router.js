@@ -10,12 +10,15 @@ const bearerAuth = require('../lib/bearer-auth-middleware');
 
 const galleryRouter = module.exports = Router();
 
-galleryRouter.post('/api/gallery', bearerAuth, jsonParser, function(req, res, next) {
+galleryRouter.post('/api/gallery', jsonParser, function(req, res, next) {
   debug('POST: /api/gallery');
-
-  req.body.userID = req.user._id;
+  console.log(req.body, 'boooooooody-->');
+  //req.body.userID = req.user._id;
   new Gallery(req.body).save()
-  .then(gallery => res.json(gallery))
+  .then(gallery => {
+    console.log('res', gallery);
+    res.json(gallery);
+  })
   .catch(next);
 });
 
