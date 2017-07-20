@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import request from 'superagent';
 
+import ListItemGallery from './list-item-gallery-component';
+
 const APP_URI = 'http://localhost:3000';
 
 class ListGallery extends Component {
@@ -36,19 +38,21 @@ class ListGallery extends Component {
   an update itself.*/
   componentWillUpdate(nextProps, nextState){
     // perform any preparations for an upcoming update
+    console.log('componentWillUpdate', nextProps, nextState.galleryList);
+
   }
   /*Finally componentDidUpdate is called after the render method. Similar
   to the componentDidMount, this method can be used to perform DOM operations
   after the data has been updated.*/
   componentDidUpdate(prevProps, prevState){
-    //
+    console.log('componentDidUpdate', prevProps, prevState.galleryList);
   }
   render() {
     return (
-      <div className="container"> 
+      <div>
         <ListGroup>
           { this.state.galleryList.map((gallery, index) => {
-            return <ListGroupItem key={index}>{gallery.name}</ListGroupItem>;
+            return <ListItemGallery key={index} gallery={gallery} />;
           })
          }
         </ListGroup>

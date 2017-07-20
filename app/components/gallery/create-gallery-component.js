@@ -13,8 +13,9 @@ class NewGallery extends Component {
   }
 
   componentDidMount() {
-    //it will load when component insert into DOM
+
   }
+
 
   createNewGallery(e) {
     e.preventDefault();
@@ -34,9 +35,7 @@ class NewGallery extends Component {
 
   render() {
     return (
-      <div className="container"> 
-        <div className="main">
-          <div className="col-lg-6 col-md-6 col-xs-12">
+        <div>
             <Form horizontal onSubmit={ e => this.createNewGallery(e)}>
               <FormGroup>
                 <Col sm={12}>
@@ -54,8 +53,6 @@ class NewGallery extends Component {
                 </Col>
               </FormGroup>
             </Form>
-          </div>
-        </div>
       </div>
     );
   }
