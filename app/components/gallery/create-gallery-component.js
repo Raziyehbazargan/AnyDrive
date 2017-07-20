@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image } from 'react-bootstrap';
 import request from 'superagent';
 
-const APP_URI = 'http://localhost:3000';
+const APP_URI = process.env.APP_URI || 'http://localhost:3300';
 
 class NewGallery extends Component {
   constructor(props) {

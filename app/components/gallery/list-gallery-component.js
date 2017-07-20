@@ -4,7 +4,7 @@ import request from 'superagent';
 
 import ListItemGallery from './list-item-gallery-component';
 
-const APP_URI = 'http://localhost:3000';
+const APP_URI = process.env.APP_URI || 'http://localhost:3300';
 
 class ListGallery extends Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import ListGallery from './list-gallery-component';
 const Gallery = (props) => {
   return (
     <div className="container-fluid">
-      <div className="col-md-4">
+      <div>
         <NewGallery />
       </div>
       <ListGallery />

@@ -19,9 +19,9 @@ dotenv.load();
 
 // setup DB & configure mongoose for promises
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/test');
+mongoose.connect(process.env.MONGODB_URI);
 
-const PORT = process.env.PORT || 5000;
+const PORT = 3300 || process.env.PORT;
 const app = express();
 
 app.use(cors());
