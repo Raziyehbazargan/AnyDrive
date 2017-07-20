@@ -4,7 +4,9 @@
   "description": "a project to upload files, images, etc using AWS S# and Dropbox api",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently 'npm run server-start' 'npm run app-start'",
+    "start-watch": "./node_modules/nodemon/bin/nodemon.js npm server-start",
+    "server-start": "node server.js",
     "start-lite": "npm run lite",
     "lite": "lite-server",
     "app-start": "./node_modules/.bin/webpack-dev-server",
@@ -81,10 +83,12 @@
     "chai": "^3.5.0",
     "concurrently": "^3.0.0",
     "coveralls": "^2.11.16",
+    "debug": "^2.6.8",
     "eslint": "^3.16.1",
     "istanbul": "^0.4.5",
     "lite-server": "^2.2.2",
     "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
     "react-bootstrap": "^0.31.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
