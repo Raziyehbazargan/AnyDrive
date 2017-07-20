@@ -6,6 +6,7 @@ const express = require('express');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 
 const errorMiddleware = require('./src/lib/error-middleware');
 const authRouter = require('./src/route/auth-router');
@@ -25,6 +26,9 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(authRouter);
 app.use(galleryRouter);

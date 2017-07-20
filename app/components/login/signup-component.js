@@ -2,22 +2,32 @@ import { Component } from 'react';
 import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image } from 'react-bootstrap';
 import request from 'superagent';
 
-const APP_URI = 'http://localhost:5000';
+const APP_URI = 'http://localhost:3000';
 
 class Signup extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      posts: []
+      posts: [],
     };
+
+    this.createUser = this.createUser.bind(this);
   }
 
   componentDidMount() {
     request
-      .get(`{APP_URI}/api/signup`)
+      .get(`${APP_URI}/api/signup`)
       .then(res => {
         console.log(res);
+      });
+  }
+
+  createUser() {
+    request
+      .get(`${APP_URI}/api/signup`)
+      .then(res => {
+        console.log('res', res);
       });
   }
 
@@ -48,7 +58,7 @@ class Signup extends Component {
 
               <FormGroup>
                 <Col sm={12}>
-                  <Button className="btn btn-primary" type="submit">
+                  <Button className="btn btn-primary" type="submit" onclick={this.createUser}>
                     Create an account
                   </Button>
                 </Col>
@@ -57,8 +67,8 @@ class Signup extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SignIn;
+export default Signup;
