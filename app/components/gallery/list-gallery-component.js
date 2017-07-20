@@ -23,16 +23,33 @@ class ListGallery extends Component {
       });
   }
 
+  /* shouldComponentUpdate: is always called before the render
+  method and enables to define if a re-rendering is needed or can be skipped*/
+  shouldComponentUpdate(nextProps, nextState) {
+    // return a boolean value
+    return true;
+  }
 
+  /*componentWillUpdate gets called as soon as the the shouldComponentUpdate
+  returned true. Any state changes via this.setState are not allowed as this
+  method should be strictly used to prepare for an upcoming update not trigger
+  an update itself.*/
+  componentWillUpdate(nextProps, nextState){
+    // perform any preparations for an upcoming update
+  }
+  /*Finally componentDidUpdate is called after the render method. Similar
+  to the componentDidMount, this method can be used to perform DOM operations
+  after the data has been updated.*/
+  componentDidUpdate(prevProps, prevState){
+    //
+  }
   render() {
-    console.log('this.state.galleryList.length', this.state.galleryList.length);
     return (
       <div className="container"> 
         <ListGroup>
-          {
-            this.state.galleryList.map((gallery, index) => {
-              return <ListGroupItem key={index}>{gallery.name}</ListGroupItem>
-            })
+          { this.state.galleryList.map((gallery, index) => {
+            return <ListGroupItem key={index}>{gallery.name}</ListGroupItem>;
+          })
          }
         </ListGroup>
       </div>
