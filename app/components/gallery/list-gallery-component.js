@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Form, FormControl , FormGroup, Col, Button, ControlLabel, Checkbox, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Form, FormControl , Glyphicon,FormGroup, Col, Button, ControlLabel, Checkbox, Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import request from 'superagent';
 
 import ListItemGallery from './list-item-gallery-component';
@@ -49,14 +49,14 @@ class ListGallery extends Component {
   }
   render() {
     return (
-      <div>
         <ListGroup>
           { this.state.galleryList.map((gallery, index) => {
-            return <ListItemGallery key={index} gallery={gallery} />;
+            return (
+              <ListItemGallery key={index} gallery={gallery} />
+            );
           })
          }
-        </ListGroup>
-      </div>
+      </ListGroup>
     );
   }
 }
