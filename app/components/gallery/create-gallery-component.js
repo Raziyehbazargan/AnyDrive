@@ -9,34 +9,26 @@ class NewGallery extends Component {
     super(props);
     this.state = {};
 
-    this.createNewGallery = this.createNewGallery.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   componentDidMount() {
 
   }
 
-
-  createNewGallery(e) {
-    e.preventDefault();
+  onSubmitForm(e) {
+    let nameValue = document.getElementById('name').value;
     const gallery = {
-      name : e.target.name.value,
+      name : nameValue,
     };
 
-    request
-      .post(`${APP_URI}/api/gallery`)
-      .set('Content-Type', 'application/json; charset=utf-8')
-      .send({name: gallery.name})
-      .then(res => {
-        console.log('NEW GALLERY DATA------>', res);
-      })
-      .catch((err) => console.log(err));
+    this.props.onAdd(gallery);
   }
 
   render() {
     return (
         <div>
-            <Form horizontal onSubmit={ e => this.createNewGallery(e)}>
+            <Form horizontal>
               <FormGroup>
                 <Col sm={12}>
                   <FormControl id="name" name="name" type="text" placeholder="New Gallery"/>
@@ -45,11 +37,7 @@ class NewGallery extends Component {
 
               <FormGroup>
                 <Col sm={12}>
-                  <Button
-                  type="button"
-                  bsStyle="primary"
-                  type="submit"> New Gallery
-                  </Button>
+                  <Button type="button" bsStyle="primary" onClick={e => this.onSubmitForm(e)}>New Gallery</Button>
                 </Col>
               </FormGroup>
             </Form>
