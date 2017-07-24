@@ -5,7 +5,7 @@ import MainNavbar from './login/navbar-component';
 // import Signup from './signup-component';
 // import NewGallery from './gallery/create-gallery-component';
 // import ListGallery from './gallery/list-gallery-component';
-import Gallery from './gallery/gallery-component';
+import Gallery from './gallery/gallery-view';
 // import Footer from './footer-component';
 
 class LoginView extends Component {
@@ -15,7 +15,7 @@ class LoginView extends Component {
 
   render() {
     return(
-      <div>
+      <div className="container-fluid">
         <MainNavbar />
         <Gallery />
       </div>
