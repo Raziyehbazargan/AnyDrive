@@ -32,7 +32,7 @@ const upload = multer({dest: dataDir});
 
 const photoAwsRouter = module.exports = require('express').Router();
 
-photoAwsRouter.post('/api/gallery/:id/photo', bearerAuth, upload.single('image'), function(req, res, next) {
+photoAwsRouter.post('/api/gallery/:id/photo', upload.single('image'), function(req, res, next) {
   if (!req.file) return next(createError(400, 'no image found'));
   if (!req.file.path) return next(createError(500, 'image not saved'));
 
