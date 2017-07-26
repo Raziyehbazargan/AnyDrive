@@ -4,6 +4,7 @@ import request from 'superagent';
 
 import NewGallery from './create-gallery-component';
 import ListGallery from './list-gallery-component';
+import SideNavbar from './side-nav-component';
 
 const APP_URI = process.env.APP_URI || 'http://localhost:3300';
 const list = [];
@@ -43,6 +44,7 @@ class Gallery extends Component {
     //console.log('this.state.galleryList', this.state.galleryList)
     return (
        <div>
+         <SideNavbar />
          <NewGallery onAdd={this.createNewGallery}/>
          <ListGallery galleries={this.state.galleryList}/>
        </div>

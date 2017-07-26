@@ -16,7 +16,6 @@ class LoginView extends Component {
   render() {
     return(
       <div className="container-fluid">
-        <MainNavbar />
         <Gallery />
       </div>
     );
