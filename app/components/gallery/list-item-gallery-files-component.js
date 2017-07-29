@@ -28,6 +28,7 @@ class ListItemGalleryFiles extends Component {
     request
       .post(`${APP_URI}/api/gallery/:id/photo`)
       .attach('file', image)
+      .field({id: params.galleryID})
       .then(gallery => {
         console.log(gallery);
       });

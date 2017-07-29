@@ -36,7 +36,7 @@ photoAwsRouter.post('/api/gallery/:id/photo', upload.single('file'), function(re
   console.log('req.file', req.file);
   if (!req.file) return next(createError(400, 'no image found'));
   if (!req.file.path) return next(createError(500, 'image not saved'));
-  req.params.id = '597193515359183af453abbd';
+  req.params.id = req.body.id;
 
   let ext = path.extname(req.file.originalname); // ex: .jpg / .jpeg
   let params = {
