@@ -32,9 +32,11 @@ const upload = multer({dest: dataDir});
 
 const photoAwsRouter = module.exports = require('express').Router();
 
-photoAwsRouter.post('/api/gallery/:id/photo', upload.single('image'), function(req, res, next) {
+photoAwsRouter.post('/api/gallery/:id/photo', upload.single('file'), function(req, res, next) {
+  console.log('req.file', req.file);
   if (!req.file) return next(createError(400, 'no image found'));
   if (!req.file.path) return next(createError(500, 'image not saved'));
+  req.params.id = req.body.id;
 
   let ext = path.extname(req.file.originalname); // ex: .jpg / .jpeg
   let params = {
@@ -43,18 +45,18 @@ photoAwsRouter.post('/api/gallery/:id/photo', upload.single('image'), function(r
     Key: `${req.file.filename}${ext}`,
     Body: fs.createReadStream(req.file.path),
   };
-
+  console.log('params---->', params);
   Gallery.findById(req.params.id)
   .then(() => s3UploadPromise(params))
   .catch(err => err.status ? Promise.reject(err) : Promise.reject(createError(500, err.message)))
   .then( s3data => {
+    console.log('s3data', s3data, 'req.body.name', path.parse(req.file.originalname).name);
     del([`${dataDir}/*`]);
     let picData = {
-      name: req.body.name,
-      desc: req.body.desc,
+      name: path.parse(req.file.originalname).name,
       objectKey: s3data.Key,
       imageURI: s3data.Location,
-      userID: req.user._id,
+      //userID: req.user._id,
       galleryID: req.params.id,
     };
     return new Photo(picData).save();

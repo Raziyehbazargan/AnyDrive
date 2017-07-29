@@ -12,7 +12,7 @@ render(
 	<Router>
     <div>
       <Route exact path="/" component={LoginView}></Route>
-      <Route exact path="/gallery" component={Gallery}></Route>
+      <Route path="gallery" component={Gallery}></Route>
 			<Route exact path="/gallery/:galleryname" component={ListItemGalleryFiles}></Route>
     </div>
   </Router>,
