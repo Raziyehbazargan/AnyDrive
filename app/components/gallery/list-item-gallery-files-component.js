@@ -14,8 +14,23 @@ class ListItemGalleryFiles extends Component {
     };
     this.uploadFile = this.uploadFile.bind(this);
   }
+
   uploadFile(file) {
-    console.log('Upload File:');
+    console.log('Upload File:', file);
+    const image = file[0];
+    const params = {
+      name: image.name,
+      type: image.type,
+      galleryID: this.state.galleryId,
+      file: image,
+    };
+
+    request
+      .post(`${APP_URI}/api/gallery/:id/photo`)
+      .attach('file', image)
+      .then(gallery => {
+        console.log(gallery);
+      });
 
   }
   componentDidMount() {
