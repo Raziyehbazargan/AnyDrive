@@ -16,7 +16,6 @@ class ListItemGalleryFiles extends Component {
   }
 
   uploadFile(file) {
-    console.log('Upload File:', file);
     const image = file[0];
     const params = {
       name: image.name,

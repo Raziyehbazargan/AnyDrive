@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
 import MainNavbar from './login/navbar-component';
-// import SignIn from './signin-component';
-// import Signup from './signup-component';
+import SignIn from './login/signin-component';
+import Signup from './login/signup-component';
 // import NewGallery from './gallery/create-gallery-component';
 // import ListGallery from './gallery/list-gallery-component';
 import Gallery from './gallery/gallery-view';
@@ -16,7 +16,7 @@ class LoginView extends Component {
   render() {
     return(
       <div className="container-fluid">
-        <Gallery />
+        <SignIn />
       </div>
     );
   }
