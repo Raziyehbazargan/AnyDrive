@@ -11,7 +11,6 @@ const authRouter = module.exports = Router();
 
 authRouter.post('/api/signup', jsonParser, function(req, res, next) {
   debug('POST: /api/signup');
-  console.log('req.body', req.body)
 
   let password = req.body.password;
   delete req.body.password;
@@ -21,7 +20,10 @@ authRouter.post('/api/signup', jsonParser, function(req, res, next) {
   user.generatePasswordHash(password)
   .then(user => user.save())
   .then(user => user.generateToken())
-  .then(token => res.send(token))
+  .then(token => {
+    console.log('token----->', token);
+    res.send(token)
+  })
   .catch(next);
 });
 
