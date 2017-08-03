@@ -17,6 +17,7 @@ class SignIn extends Component {
     this.submitSignin = this.submitSignin.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.getToken = this.getToken.bind(this);
   }
 
   handleEmailChange(e) {
@@ -32,6 +33,13 @@ class SignIn extends Component {
       .then(res => {
         <Redirect to="/gallery"/>
       });
+  }
+
+  getToken(){
+    if (this.state.token) return this.state.token;
+    this.token = localStorage.getItem('token');
+    if (this.token) return (this.token);
+    return ('service.token not found');
   }
 
   render() {

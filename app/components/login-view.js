@@ -16,7 +16,7 @@ class LoginView extends Component {
   render() {
     return(
       <div className="container-fluid">
-        <SignIn />
+        <Signup />
       </div>
     );
   }

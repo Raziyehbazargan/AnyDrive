@@ -12,32 +12,34 @@ class Signup extends Component {
       posts: [],
       email: null,
       password: null,
+      token: null,
     };
 
     this.createUser = this.createUser.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.setToken = this.setToken.bind(this);
   }
 
-  // componentDidMount() {
-  //   request
-  //     .get(`${APP_URI}/api/signup`)
-  //     .then(res => {
-  //       console.log(res);
-  //     });
-  // }
   handleEmailChange(e) {
     this.setState({email: e.target.value});
   }
   handlePasswordChange(e) {
     this.setState({password: e.target.value});
   }
+  setToken(_token) {
+    if (! _token)
+      return ('no token');
+    window.localStorage.setItem('token', _token);
+    this.setState({token: _token});
+  }
+
   createUser() {
     request
       .post(`${APP_URI}/api/signup`)
       .send({email: this.state.email, password: this.state.password})
-      .then(res => {
-        console.log('res', res);
+      .then(token => {
+        this.setToken(token);
       });
   }
 
